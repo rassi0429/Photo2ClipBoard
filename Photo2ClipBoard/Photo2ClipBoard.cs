@@ -5,25 +5,25 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NeosModLoader;
+using ResoniteModLoader;
 using HarmonyLib;
 using FrooxEngine;
-using CodeX;
 using System.IO;
+using Elements.Assets;
 
 namespace Photo2ClipBoard
 {
-    public class Photo2ClipBoard : NeosMod
+    public class Photo2ClipBoard : ResoniteMod
     {
         public override string Name => "Photo2ClipBoard";
         public override string Author => "kka429";
-        public override string Version => "0.0.1";
-        public override string Link => "";
+        public override string Version => "1.0.0";
+        public override string Link => "https://github.com/rassi0429/Photo2ClipBoard";
 
 
         public override void OnEngineInit()
         {
-            var harmony = new Harmony("com.kokoa.PDFImport");
+            var harmony = new Harmony("com.kokoa.Photo2ClipBoard");
             harmony.PatchAll();
         }
 
@@ -61,7 +61,7 @@ namespace Photo2ClipBoard
             public void NotifyOfScreenshot(World world, string file, ScreenshotType type, DateTime time)
             {
                 MemoryStream s = new MemoryStream();
-                Bitmap2D bitmap2D1 = Bitmap2D.Load(file, false, false);
+                Bitmap2D bitmap2D1 = Bitmap2D.Load(file, false);
                 bitmap2D1.Save(s, "jpg", 85, true);
                 s.Seek(0, SeekOrigin.Begin);
                 Image img = Image.FromStream(s);
